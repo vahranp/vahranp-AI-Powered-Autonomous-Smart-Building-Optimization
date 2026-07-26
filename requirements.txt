@@ -1,0 +1,12 @@
+mcp
+ollama
+streamlit
+plotly
+pandas
+numpy
+pydantic
+python-dotenv
+fastapi
+uvicorn[standard]
+sqlalchemy
+websockets

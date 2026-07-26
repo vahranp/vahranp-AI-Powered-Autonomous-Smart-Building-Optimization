@@ -1,0 +1,219 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --radius: 0.85rem;
+
+  /* Rich dark-navy theme -- deeper indigo tint than flat neutral gray so
+     the vibrant accent colors below have somewhere to pop against. */
+  --background: oklch(0.16 0.025 265);
+  --foreground: oklch(0.97 0.004 260);
+  --card: oklch(0.205 0.03 265);
+  --card-foreground: oklch(0.97 0.004 260);
+  --popover: oklch(0.225 0.032 265);
+  --popover-foreground: oklch(0.97 0.004 260);
+
+  /* Brand / primary action color -- Honeywell red, used for the main
+     call-to-action (Run simulation) and brand accents. Status meaning
+     (running/good) lives in --success, not here. */
+  --primary: oklch(0.58 0.225 27);
+  --primary-foreground: oklch(0.98 0.006 27);
+
+  --secondary: oklch(0.26 0.025 265);
+  --secondary-foreground: oklch(0.95 0.004 260);
+  --muted: oklch(0.24 0.022 265);
+  --muted-foreground: oklch(0.68 0.02 265);
+  --accent: oklch(0.29 0.04 262);
+  --accent-foreground: oklch(0.95 0.004 260);
+
+  /* Vivid semantic status colors -- saturated but each still reads as its
+     own distinct meaning, kept apart from the brand red above. */
+  --success: oklch(0.74 0.19 155);
+  --success-foreground: oklch(0.15 0.03 155);
+  --info: oklch(0.66 0.2 258);
+  --info-foreground: oklch(0.16 0.03 258);
+  --warning: oklch(0.79 0.18 70);
+  --warning-foreground: oklch(0.2 0.04 70);
+  --destructive: oklch(0.63 0.24 25);
+  --destructive-foreground: oklch(0.97 0.015 25);
+
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.58 0.225 27 / 50%);
+
+  /* Qualitative chart palette -- for categorical series (e.g. strategy
+     comparisons), not status meaning, so it stays distinct from primary/destructive.
+     Purple + magenta added to echo the vibrant reference palette. */
+  --chart-1: oklch(0.74 0.19 155);
+  --chart-2: oklch(0.79 0.18 70);
+  --chart-3: oklch(0.66 0.2 258);
+  --chart-4: oklch(0.64 0.24 305);
+  --chart-5: oklch(0.67 0.23 350);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --font-heading: "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+#root {
+  min-height: 100svh;
+}
+
+::selection {
+  background: color-mix(in oklch, var(--primary) 30%, transparent);
+}
+
+/* Calm, consistent interaction feedback across every interactive element,
+   instead of each component hand-rolling its own timing. */
+a, button, [role="button"], input, select, textarea {
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    opacity 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+/* thin, unobtrusive scrollbars to match the dark theme */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--muted) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--muted);
+  border-radius: 999px;
+}
+
+/* ---- Operations Console: calm status panels + closed-loop animations ----
+   Deliberately restrained -- a thin border and a faint status-colored edge
+   rather than blur/glass, so this tab reads as part of the same enterprise
+   product as every other tab, not a separate "SCADA skin". */
+
+.ops-glass {
+  background: var(--card);
+  border: 1px solid var(--border);
+}
+
+.ops-panel-glow {
+  box-shadow: inset 2px 0 0 0 color-mix(in oklch, var(--success) 35%, transparent);
+}
+
+@keyframes ops-pulse-ring {
+  0% { box-shadow: 0 0 0 0 color-mix(in oklch, var(--success) 45%, transparent); }
+  100% { box-shadow: 0 0 0 8px color-mix(in oklch, var(--success) 0%, transparent); }
+}
+.ops-pulse {
+  animation: ops-pulse-ring 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes ops-live-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.82); }
+}
+.ops-live-dot {
+  animation: ops-live-dot 1.6s ease-in-out infinite;
+}
+
+@keyframes ops-fade-slide-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.ops-event-enter {
+  animation: ops-fade-slide-in 0.25s ease-out;
+}
+
+@keyframes ops-flow-dash {
+  to { stroke-dashoffset: -40; }
+}
+.ops-flow-line {
+  stroke-dasharray: 6 6;
+  animation: ops-flow-dash 1.2s linear infinite;
+}
+
+@keyframes ops-node-active {
+  0%, 100% { filter: drop-shadow(0 0 0px var(--success)); }
+  50% { filter: drop-shadow(0 0 6px var(--success)); }
+}
+.ops-node-active {
+  animation: ops-node-active 0.9s ease-in-out 2;
+}
+
+@keyframes ops-packet-move {
+  0% { offset-distance: 0%; opacity: 0; }
+  8% { opacity: 1; }
+  92% { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
+.ops-packet {
+  offset-rotate: 0deg;
+  animation: ops-packet-move 3.2s linear infinite;
+}
+
+@keyframes ops-blink-caret {
+  50% { opacity: 0; }
+}
+.ops-caret {
+  animation: ops-blink-caret 1s step-end infinite;
+}

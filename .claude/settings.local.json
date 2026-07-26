@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(python -m py_compile backend\\\\main.py)",
+      "PowerShell(if \\($?\\) { \"SYNTAX OK\" })"
+    ]
+  }
+}
