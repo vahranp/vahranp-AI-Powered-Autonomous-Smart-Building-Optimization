@@ -94,7 +94,7 @@ exact input that caused the crash before rerunning the real pipeline. Full write
 
 ## Current status
 
-**Working and verified against real EnergyPlus runs** (5-zone reference office, 14-day Jan period starting Monday):
+**Working and verified against real EnergyPlus runs** (5-zone reference office, 3-day Jan period starting Monday, 100 ticks):
 
 *Core control (four real strategies, `CONTROL_STRATEGY` env var):*
 - `ashrae_baseline` — fixed, code-minimum operating schedule: constant setpoints during a fixed
