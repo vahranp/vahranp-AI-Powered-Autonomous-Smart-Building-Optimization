@@ -15,14 +15,13 @@ agent negotiation feed).
    (untouched original) and `building_models/CURRENT_modified_RefBldgSmallOffice.idf` (the
    modified version actually run — see `ARCHITECTURE.md`'s "Building model additions" section
    for exactly what changed and why).
-3. **Quantitative savings dashboard** — the running dashboard's "Reactive vs predictive vs LLM"
+3. **Quantitative savings dashboard** — the standalone-dashboard folder has the streamlit file with final comparison after a run between llm sim and baseline sim. The is also a website published which is attached in the website link of this repository
    panel, backed by `/api/compare`; see "Reading the savings numbers correctly" below before
    quoting a percentage.
 4. **System architecture document** — `ARCHITECTURE.md`, with explicit sections for tool-calling
    architecture, prompt engineering strategy, prompt latency management, and handling lengthy
    simulation logs (the exact four items the rubric's deliverable #4 asks for).
-5. **PoC demo video + presentation** — `DEMO_SCRIPT.md` has a timed 3-minute script and slide
-   content mapped to the rubric's categories; recording/template-filling is a manual step.
+5. **PoC demo video + presentation** — The Poc Video of the entire simulation is there in this repository.
 
 ## Reading the savings numbers correctly
 
